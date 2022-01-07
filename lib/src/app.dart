@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_youtube_clone_sample/controller/app_controller.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+
+import 'controller/app_controller.dart';
 
 class App extends GetView<AppController> {
   const App({Key? key}) : super(key: key);

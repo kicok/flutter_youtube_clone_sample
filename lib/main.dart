@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_youtube_clone_sample/binding/init_binding.dart';
 import 'package:get/get.dart';
 
 import 'src/app.dart';
+import 'src/binding/init_binding.dart';
 
 void main() {
   runApp(const MyApp());
