@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_youtube_clone_sample/src/pages/explore.dart';
+import 'package:flutter_youtube_clone_sample/src/pages/home.dart';
+import 'package:flutter_youtube_clone_sample/src/pages/library.dart';
+import 'package:flutter_youtube_clone_sample/src/pages/subscribe.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'controller/app_controller.dart';
@@ -10,7 +14,21 @@ class App extends GetView<AppController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      body: Obx(() {
+        switch (RouteName.values[controller.currentIndex.value]) {
+          case RouteName.home:
+            return const Home();
+          case RouteName.explore:
+            return const Explore();
+          // case RouteName.add:
+          //   return const Home();
+          case RouteName.subs:
+            return const Subscribe();
+          case RouteName.library:
+            return const Library();
+        }
+        return Container();
+      }),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
