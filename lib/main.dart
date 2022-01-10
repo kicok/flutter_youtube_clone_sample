@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Youtube Clone App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.white,
+        ),
+        // primarySwatch: Colors.blue,
       ),
       // home: const App(),
       initialBinding: InitBinding(),
