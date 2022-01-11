@@ -1,18 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_youtube_clone_sample/src/controller/video_controller.dart';
 import 'package:flutter_youtube_clone_sample/src/models/video.dart';
 import 'package:flutter_youtube_clone_sample/src/util/utils.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class VideoWidget extends StatelessWidget {
+class VideoWidget extends StatefulWidget {
   final Video video;
-  const VideoWidget({Key? key, required this.video}) : super(key: key);
+  VideoWidget({Key? key, required this.video}) : super(key: key);
+
+  @override
+  State<VideoWidget> createState() => _VideoWidgetState();
+}
+
+class _VideoWidgetState extends State<VideoWidget> {
+  //final VideoController controller = Get.put(VideoController(), tag:  widget.video.id.videoId);
+  //final VideoController controller = Get.put(VideoController(), tag:  video.id.videoId);
+  // 멤버 변수 형태로 인스턴스를 만들면 같은 멤버변수인 video에 접근할수 없음
+  // 그러므로 statefulWidget 으로 변경해서 lifeCycle상의 initState() 에서 인스턴스를 생성하는것이 좋을거 같음.
+
+  late VideoController _videoController;
+  @override
+  void initState() {
+    _videoController = Get.put(VideoController(video: widget.video),
+        tag: widget.video.id.videoId);
+    // 유튜브 영상이 여러개있으므로 갯수에 맞춰서 인스턴스가 필요
+    // tag 를 이용하여 single인스턴스가 아닌 여러개의 인스턴스를 생성한다.
+    super.initState();
+  }
 
   Widget _thumbnail() {
     return Container(
       height: 250,
       color: Colors.grey.withOpacity(0.5),
       child: Image.network(
-        video.snippet.thumbnails.medium.url,
+        widget.video.snippet.thumbnails.medium.url,
         fit: BoxFit.fitWidth,
       ),
     );
@@ -34,7 +56,7 @@ class VideoWidget extends StatelessWidget {
                     Expanded(
                       //maxLines 을 사용하고 Expanded로 감싸주면 줄 바꾸기가 된다.
                       child: Text(
-                        video.snippet.title,
+                        widget.video.snippet.title,
                         maxLines: 2,
                         //maxLines 을 사용하고 Expanded로 감싸주면 줄 바꾸기가 된다.
                       ),
@@ -49,24 +71,26 @@ class VideoWidget extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      video.snippet.channelTitle,
+                      widget.video.snippet.channelTitle,
                       style: TextStyle(
                         fontSize: 11,
                         color: Colors.black.withOpacity(0.8),
                       ),
                     ),
                     const Text("ㆍ"),
-                    Text(
-                      "조회수 1,000회",
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.black.withOpacity(0.6),
+                    Obx(
+                      () => Text(
+                        _videoController.viewCountString,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.black.withOpacity(0.6),
+                        ),
                       ),
                     ),
                     const Text("ㆍ"),
                     Text(
                       DateFormat("yyyy-MM-dd")
-                          .format(video.snippet.publishTime),
+                          .format(widget.video.snippet.publishTime),
                       style: TextStyle(
                         fontSize: 11,
                         color: Colors.black.withOpacity(0.6),
