@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_youtube_clone_sample/src/models/video.dart';
 import 'package:flutter_youtube_clone_sample/src/util/utils.dart';
+import 'package:intl/intl.dart';
 
 class VideoWidget extends StatelessWidget {
-  const VideoWidget({Key? key}) : super(key: key);
+  final Video video;
+  const VideoWidget({Key? key, required this.video}) : super(key: key);
 
   Widget _thumbnail() {
     return Container(
       height: 250,
       color: Colors.grey.withOpacity(0.5),
+      child: Image.network(
+        video.snippet.thumbnails.medium.url,
+        fit: BoxFit.fitWidth,
+      ),
     );
   }
 
@@ -24,10 +31,10 @@ class VideoWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(
+                    Expanded(
                       //maxLines 을 사용하고 Expanded로 감싸주면 줄 바꾸기가 된다.
                       child: Text(
-                        "스페셜 유튜브 다시보기 스페셜 유튜브 다시보기 스페셜 유튜브 다시보기 스페셜 유튜브 다시보기 스페셜 유튜브 다시보기 ",
+                        video.snippet.title,
                         maxLines: 2,
                         //maxLines 을 사용하고 Expanded로 감싸주면 줄 바꾸기가 된다.
                       ),
@@ -42,25 +49,26 @@ class VideoWidget extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "3프로 TV",
+                      video.snippet.channelTitle,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 11,
                         color: Colors.black.withOpacity(0.8),
                       ),
                     ),
-                    const Text(" ㆍ "),
+                    const Text("ㆍ"),
                     Text(
-                      "조회수: 1,000회",
+                      "조회수 1,000회",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 11,
                         color: Colors.black.withOpacity(0.6),
                       ),
                     ),
-                    const Text(" ㆍ "),
+                    const Text("ㆍ"),
                     Text(
-                      "2022-01-10",
+                      DateFormat("yyyy-MM-dd")
+                          .format(video.snippet.publishTime),
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 11,
                         color: Colors.black.withOpacity(0.6),
                       ),
                     ),

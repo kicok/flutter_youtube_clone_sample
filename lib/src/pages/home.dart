@@ -26,7 +26,8 @@ class Home extends StatelessWidget {
                       onTap: () {
                         Get.toNamed("/detail/1235");
                       },
-                      child: const VideoWidget(),
+                      child: VideoWidget(
+                          video: controller.youtubeResult.value.items![index]),
                     );
                   },
                   childCount: controller.youtubeResult.value.items == null
