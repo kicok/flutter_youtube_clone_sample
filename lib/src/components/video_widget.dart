@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube_clone_sample/src/controller/video_controller.dart';
 import 'package:flutter_youtube_clone_sample/src/models/video.dart';
@@ -37,9 +38,13 @@ class _VideoWidgetState extends State<VideoWidget> {
         Container(
           //height: 250,
           color: Colors.grey.withOpacity(0.5),
-          child: Image.network(
-            widget.video.snippet.thumbnails.medium.url,
-            fit: BoxFit.fitWidth,
+          child: CachedNetworkImage(
+            imageUrl: widget.video.snippet.thumbnails.medium.url,
+            placeholder: (context, url) => const SizedBox(
+              height: 230,
+              child: CircularProgressIndicator(),
+            ),
+            fit: BoxFit.cover,
           ),
         )
       ],
