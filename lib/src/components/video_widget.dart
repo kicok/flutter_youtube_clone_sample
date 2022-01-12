@@ -45,7 +45,9 @@ class _VideoWidgetState extends State<VideoWidget> {
       padding: const EdgeInsets.only(left: 10, bottom: 20),
       child: Row(
         children: [
-          Utils.myAvatar(),
+          Obx(
+            () => Utils.myAvatar(_videoController.youtuberThumbNailUrl),
+          ),
           const SizedBox(width: 15),
           Expanded(
             child: Column(
@@ -90,7 +92,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                     const Text("ㆍ"),
                     Text(
                       DateFormat("yyyy-MM-dd")
-                          .format(widget.video.snippet.publishTime),
+                          .format(widget.video.snippet.publishedAt),
                       style: TextStyle(
                         fontSize: 11,
                         color: Colors.black.withOpacity(0.6),

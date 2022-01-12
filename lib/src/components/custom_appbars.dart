@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
         ),
-        Utils.myAvatar(),
+        Utils.myAvatar(""),
       ],
     );
   }

@@ -76,7 +76,7 @@ class YoutubeDetail extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
         children: [
-          Utils.myAvatar(),
+          Utils.myAvatar(""),
           const SizedBox(width: 15),
           Expanded(
             child: Column(

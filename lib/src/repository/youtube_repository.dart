@@ -1,5 +1,6 @@
 import 'package:flutter_youtube_clone_sample/src/models/statistics.dart';
 import 'package:flutter_youtube_clone_sample/src/models/youtube_video_results.dart';
+import 'package:flutter_youtube_clone_sample/src/models/youtuber.dart';
 import 'package:get/get.dart';
 
 class YoutubeRepository extends GetConnect {
@@ -37,6 +38,21 @@ class YoutubeRepository extends GetConnect {
       if (response.body["items"] != null && response.body["items"].length > 0) {
         Map<String, dynamic> data = response.body["items"][0];
         return Statistics.fromJson(data["statistics"]);
+      }
+    }
+  }
+
+  Future<Youtuber?> getYoutuberInfoById(String channelId) async {
+    String url =
+        "/youtube/v3/channels?part=statistics,snippet&key=AIzaSyD_xKuiNlnUuFRTZPNKiUtKUmM7cIHXaIk&id=$channelId";
+
+    final response = await get(url);
+    if (response.status.hasError) {
+      return Future.error(response.statusText.toString());
+    } else {
+      if (response.body["items"] != null && response.body["items"].length > 0) {
+        Map<String, dynamic> data = response.body["items"][0];
+        return Youtuber.fromJson(data);
       }
     }
   }
