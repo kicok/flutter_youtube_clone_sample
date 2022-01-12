@@ -30,13 +30,19 @@ class _VideoWidgetState extends State<VideoWidget> {
   }
 
   Widget _thumbnail() {
-    return Container(
-      height: 250,
-      color: Colors.grey.withOpacity(0.5),
-      child: Image.network(
-        widget.video.snippet.thumbnails.medium.url,
-        fit: BoxFit.fitWidth,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          //height: 250,
+          color: Colors.grey.withOpacity(0.5),
+          child: Image.network(
+            widget.video.snippet.thumbnails.medium.url,
+            fit: BoxFit.fitWidth,
+          ),
+        )
+      ],
     );
   }
 

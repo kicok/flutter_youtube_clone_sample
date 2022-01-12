@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_youtube_clone_sample/src/util/utils.dart';
-import 'package:get/get.dart';
 
 class YoutubeDetail extends StatelessWidget {
   const YoutubeDetail({Key? key}) : super(key: key);
