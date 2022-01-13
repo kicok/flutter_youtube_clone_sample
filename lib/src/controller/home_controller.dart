@@ -16,6 +16,12 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
+  }
+
   void _scrollEvent() {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
