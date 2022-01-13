@@ -14,13 +14,14 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Obx(() => CustomScrollView(
             controller: controller.scrollController,
+            key: const  PageStorageKey(UniqueKey), // 다른 bottomNavigationBar 의 탭을 클릭후 돌아와도 스크롤 위치가 그대로 위치함
             slivers: [
               const SliverAppBar(
                 title: CustomAppBar(),
                 floating: true,
                 snap: true,
               ),
-              SliverList(
+              SliverList(               
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return GestureDetector(
