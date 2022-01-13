@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_youtube_clone_sample/src/controller/youtube_detail_controller.dart';
 import 'package:flutter_youtube_clone_sample/src/util/utils.dart';
+import 'package:get/get.dart';
 
-class YoutubeDetail extends StatelessWidget {
+class YoutubeDetail extends GetView<YoutubeDetailController> {
   const YoutubeDetail({Key? key}) : super(key: key);
 
   Widget _titleZone() {
@@ -11,14 +13,14 @@ class YoutubeDetail extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            "개발하는남자 유튜브 영상 다시보기",
-            style: TextStyle(fontSize: 15),
+          Text(
+            controller.title,
+            style: const TextStyle(fontSize: 15),
           ),
           Row(
             children: [
               Text(
-                "조회수 1,000회",
+                controller.viewCount,
                 style: TextStyle(
                   fontSize: 13,
                   color: Colors.black.withOpacity(0.5),
@@ -26,7 +28,7 @@ class YoutubeDetail extends StatelessWidget {
               ),
               const Text(" ㆍ "),
               Text(
-                "2022-01-10",
+                controller.publishedTime,
                 style: TextStyle(
                   fontSize: 13,
                   color: Colors.black.withOpacity(0.5),
@@ -40,11 +42,11 @@ class YoutubeDetail extends StatelessWidget {
   }
 
   Widget _descriptionZone() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Text(
-        "안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. 안녕하세요. 개발하는 남자 개남입니다. ",
-        style: TextStyle(fontSize: 14),
+        controller.description,
+        style: const TextStyle(fontSize: 14),
       ),
     );
   }
@@ -62,10 +64,9 @@ class YoutubeDetail extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _buttonOne("like", "1,000"),
-        _buttonOne("dislike", "1,000"),
-        _buttonOne("share", "1,000"),
-        _buttonOne("save", "1,000"),
+        _buttonOne("like", controller.likeCount),
+        _buttonOne("share", "공유"),
+        _buttonOne("save", "저장"),
       ],
     );
   }
@@ -75,18 +76,18 @@ class YoutubeDetail extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
         children: [
-          Utils.myAvatar(""),
+          Utils.myAvatar(controller.youtuberThumbNail),
           const SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  "개발하는남자",
-                  style: TextStyle(fontSize: 18),
+                Text(
+                  controller.youtuberName,
+                  style: const TextStyle(fontSize: 18),
                 ),
                 Text(
-                  "구독자 10,000",
+                  "구독자 ${controller.subscriberCount}",
                   style: TextStyle(
                       fontSize: 14, color: Colors.black.withOpacity(0.6)),
                 ),
@@ -122,6 +123,8 @@ class YoutubeDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get.find<YoutubeDetailController>();
+    // Get.lazyPut으로 바인딩 되었으므로 controller를 임시로 깨우기 위해 실행함.
     return Scaffold(
       appBar: AppBar(),
       body: Column(
