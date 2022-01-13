@@ -13,9 +13,13 @@ class YoutubeRepository extends GetConnect {
     super.onInit();
   }
 
-  Future<YoutubeVideoResult?> loadVideos() async {
+  String apiKey = "AIzaSyBO_4fN0B0mAJ2mrWMJpjblC9uKbu1hFuQ";
+  //String apiKey = "AIzaSyD_xKuiNlnUuFRTZPNKiUtKUmM7cIHXaIk";
+
+  Future<YoutubeVideoResult?> loadVideos(String nextPageToken) async {
+    print(nextPageToken);
     String url =
-        "/youtube/v3/search?part=snippet&channelId=UChlv4GSd7OQl3js-jkLOnFA&maxResults=10&order=date&type=video&videoDefinition=high&key=AIzaSyD_xKuiNlnUuFRTZPNKiUtKUmM7cIHXaIk";
+        "/youtube/v3/search?part=snippet&channelId=UChlv4GSd7OQl3js-jkLOnFA&maxResults=10&order=date&type=video&videoDefinition=high&key=$apiKey&pageToken=$nextPageToken";
 
     final response = await get(url);
     if (response.status.hasError) {
@@ -28,8 +32,7 @@ class YoutubeRepository extends GetConnect {
   }
 
   Future<Statistics?> getVideoInfoById(String videoId) async {
-    String url =
-        "/youtube/v3/videos?part=statistics&key=AIzaSyD_xKuiNlnUuFRTZPNKiUtKUmM7cIHXaIk&id=$videoId";
+    String url = "/youtube/v3/videos?part=statistics&key=$apiKey&id=$videoId";
 
     final response = await get(url);
     if (response.status.hasError) {
@@ -44,7 +47,7 @@ class YoutubeRepository extends GetConnect {
 
   Future<Youtuber?> getYoutuberInfoById(String channelId) async {
     String url =
-        "/youtube/v3/channels?part=statistics,snippet&key=AIzaSyD_xKuiNlnUuFRTZPNKiUtKUmM7cIHXaIk&id=$channelId";
+        "/youtube/v3/channels?part=statistics,snippet&key=$apiKey&id=$channelId";
 
     final response = await get(url);
     if (response.status.hasError) {
