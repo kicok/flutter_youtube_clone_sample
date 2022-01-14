@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 class VideoWidget extends StatefulWidget {
   final Video video;
-  VideoWidget({Key? key, required this.video}) : super(key: key);
+  const VideoWidget({Key? key, required this.video}) : super(key: key);
 
   @override
   State<VideoWidget> createState() => _VideoWidgetState();
