@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_youtube_clone_sample/src/controller/youtube_detail_controller.dart';
 import 'package:flutter_youtube_clone_sample/src/util/utils.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeDetail extends GetView<YoutubeDetailController> {
   const YoutubeDetail({Key? key}) : super(key: key);
@@ -121,6 +122,38 @@ class YoutubeDetail extends GetView<YoutubeDetailController> {
     );
   }
 
+  Widget _player() {
+    return YoutubePlayer(
+      controller: controller.playerController,
+      showVideoProgressIndicator: true,
+      progressIndicatorColor: Colors.blueAccent,
+      topActions: <Widget>[
+        const SizedBox(width: 8.0),
+        Expanded(
+          child: Text(
+            controller.playerController.metadata.title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.settings,
+            color: Colors.white,
+            size: 25.0,
+          ),
+          onPressed: () {},
+        ),
+      ],
+      onReady: () {},
+      onEnded: (data) {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Get.find<YoutubeDetailController>();
@@ -129,10 +162,7 @@ class YoutubeDetail extends GetView<YoutubeDetailController> {
       appBar: AppBar(),
       body: Column(
         children: [
-          Container(
-            height: 250,
-            color: Colors.grey.withOpacity(0.5),
-          ),
+          _player(),
           Expanded(
             child: _description(),
           ),
