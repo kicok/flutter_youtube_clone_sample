@@ -31,11 +31,11 @@ class ChannelSnippet {
   factory ChannelSnippet.fromJson(Map<String, dynamic> json) => ChannelSnippet(
         title: json["title"],
         description: json["description"],
-        customUrl: json["customUrl"],
+        customUrl: json["customUrl"] ?? "",
         publishedAt: DateTime.parse(json["publishedAt"]),
         thumbnails: Thumbnails.fromJson(json["thumbnails"]),
         localized: Localized.fromJson(json["localized"]),
-        country: json["country"],
+        country: json["country"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
