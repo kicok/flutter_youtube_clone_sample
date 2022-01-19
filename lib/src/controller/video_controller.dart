@@ -3,6 +3,7 @@ import 'package:flutter_youtube_clone_sample/src/models/video.dart';
 import 'package:flutter_youtube_clone_sample/src/models/youtuber.dart';
 import 'package:flutter_youtube_clone_sample/src/repository/youtube_repository.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class VideoController extends GetxController {
   late Video video;
@@ -24,7 +25,8 @@ class VideoController extends GetxController {
     super.onInit();
   }
 
-  String get viewCountString => "조회수: ${statistics.value.viewCount ?? '-'}회";
+  String get viewCountString => NumberFormat("조회수: ###,###,###회")
+      .format(int.tryParse(statistics.value.viewCount.toString()) ?? 0);
 
   String get youtuberThumbNailUrl {
     if (youtuber.value.snippet == null) {

@@ -30,7 +30,8 @@ class YoutubeDetailController extends GetxController {
   String get title => videoController.video.snippet.title;
   String get description => videoController.video.snippet.description;
   String get likeCount => "${videoController.statistics.value.likeCount}";
-  String get viewCount => "조회수 ${videoController.statistics.value.viewCount}회";
+  String get viewCount => NumberFormat("조회수: ###,###,###회").format(
+      int.tryParse(videoController.statistics.value.viewCount.toString()) ?? 0);
   String get publishedTime => DateFormat("yyyy-MM-dd")
       .format(videoController.video.snippet.publishTime);
   String get youtuberThumbNail => videoController.youtuberThumbNailUrl;
